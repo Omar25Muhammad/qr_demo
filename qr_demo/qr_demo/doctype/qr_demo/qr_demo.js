@@ -11,19 +11,25 @@ frappe.ui.form.on('QR Demo', {
 				doc: frm.doc,
 				method: "the_barcode",
 				callback: function (r) {
-					console.log(r.message)
+					console.log(r.message);
 					// frm.doc.item_barcode = r.message
 					// frm.refresh_fields('item_barcode')
-
-					frm.call({
-						method: "qr_demo.qr_code.get_barcode",
-						args: { data: r.message },
-						callback: function (rt) {
-							console.log(rt.message)
-							frm.doc.qr_code = rt.message
-							frm.refresh_fields()
-						}
-					})
+					if (r.message != -1)
+						frm.call({
+							method: "qr_demo.qr_code.get_barcode",
+							args: { data: r.message },
+							callback: function (rt) {
+								console.log(rt.message)
+								frm.doc.qr_code = rt.message;
+								frm.refresh_fields();
+							}
+						})
+					else {
+						frappe.msgprint('الباركود يجب أن يبدء بـ66 وبطول 7 أرقام')
+						frm.doc.item_code = '';
+						frm.doc.qr_image = '';
+						frm.refresh_fields();
+					}
 				}
 			})
 	},

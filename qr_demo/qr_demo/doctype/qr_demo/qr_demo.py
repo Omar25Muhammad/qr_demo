@@ -11,7 +11,9 @@ class QRDemo(Document):
 	def the_barcode(self):
 		for barcode in frappe.get_doc('Item', self.item_code).barcodes:
 			if len(barcode.barcode) == 7 and barcode.barcode.startswith('66'):
-				return barcode.barcode	
+				return barcode.barcode
+		else:
+			return -1
 		
 	def validate(self):
 		...
