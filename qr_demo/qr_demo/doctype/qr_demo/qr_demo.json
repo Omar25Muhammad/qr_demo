@@ -12,7 +12,11 @@
   "item_name",
   "section_break_4xble",
   "qr_code",
-  "qr_image"
+  "qr_image",
+  "item_price",
+  "production_date",
+  "expiry_date",
+  "logo"
  ],
  "fields": [
   {
@@ -48,11 +52,31 @@
   {
    "fieldname": "section_break_4xble",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "item_price",
+   "fieldtype": "Currency",
+   "label": "Item Price"
+  },
+  {
+   "fieldname": "production_date",
+   "fieldtype": "Date",
+   "label": "Production Date"
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expiry Date"
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Attach Image",
+   "label": "Logo"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-04-10 14:12:16.058264",
+ "modified": "2023-04-10 22:53:03.829830",
  "modified_by": "Administrator",
  "module": "QR Demo",
  "name": "QR Demo",
