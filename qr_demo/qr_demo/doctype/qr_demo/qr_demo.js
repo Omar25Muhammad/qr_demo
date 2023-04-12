@@ -46,15 +46,24 @@ frappe.ui.form.on('QR Demo', {
 	},
 		
 	price_list: function (frm) {
-		if (frm.doc.item_code) {
+		// console.log('ok')
+		// console.log(frm.doc.price_list)
+		if ((frm.doc.item_code) && (frm.doc.uom)) {
 				frm.call({
 					doc: frm.doc,
-					args: {price_list: frm.doc.price_list, item_barcode: barcode},
+					args: {price_list: frm.doc.price_list, item_barcode: barcode, uom: frm.doc.uom},
 					method: "the_price",
 					callback: function (response) { 
 						console.log(response.message)
+						frm.doc.item_price = response.message
+						frm.refresh_fields()
 					}
 				})
-			}
+		}
+		else {
+			frm.doc.price_list = ''
+			frappe.msgprint('الرجاء التأكّد من اختيار كل من الصنف ووحدة الكمية')
+			frm.refresh_fields()
+		}
 		}
 });

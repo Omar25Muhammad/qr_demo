@@ -19,6 +19,7 @@
   "production_date",
   "expiry_date",
   "column_break_ymh1p",
+  "uom",
   "logo"
  ],
  "fields": [
@@ -60,7 +61,8 @@
   {
    "fieldname": "item_price",
    "fieldtype": "Currency",
-   "label": "Item Price"
+   "label": "Item Price",
+   "read_only": 1
   },
   {
    "fieldname": "production_date",
@@ -90,11 +92,17 @@
   {
    "fieldname": "column_break_ymh1p",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "Unit of Measure",
+   "options": "UOM"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-04-12 21:48:24.917581",
+ "modified": "2023-04-12 23:39:51.264114",
  "modified_by": "Administrator",
  "module": "QR Demo",
  "name": "QR Demo",
