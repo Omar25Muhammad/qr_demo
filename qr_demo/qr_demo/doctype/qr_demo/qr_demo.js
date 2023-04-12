@@ -2,10 +2,15 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('QR Demo', {
-	// refresh: function(frm) {
-
-	// },
-		item_code: function (frm) {
+	refresh: function (frm) {
+		frm.set_query('price_list', function (frm) {
+			return {
+				filters: { selling: 1 }
+			}
+		});
+	},
+		
+	item_code: function (frm) {
 		if (frm.doc.item_code)
 			frm.call({
 				doc: frm.doc,
@@ -33,4 +38,17 @@ frappe.ui.form.on('QR Demo', {
 				}
 			})
 	},
+		
+	price_list: function (frm) {
+		if (frm.doc.item_code) {
+				frm.call({
+					doc: frm.doc,
+					args: {price_list: frm.doc.price_list},
+					method: "the_price",
+					callback: function (response) { 
+						console.log(response.message)
+					}
+				})
+			}
+		}
 });

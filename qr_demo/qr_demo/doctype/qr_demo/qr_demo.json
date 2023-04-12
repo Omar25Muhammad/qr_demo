@@ -13,9 +13,12 @@
   "section_break_4xble",
   "qr_code",
   "qr_image",
+  "column_break_is44n",
+  "price_list",
   "item_price",
   "production_date",
   "expiry_date",
+  "column_break_ymh1p",
   "logo"
  ],
  "fields": [
@@ -27,6 +30,7 @@
    "read_only": 1
   },
   {
+   "depends_on": "eval:doc.item_code",
    "fieldname": "qr_image",
    "fieldtype": "Image",
    "label": "QR Image",
@@ -72,11 +76,25 @@
    "fieldname": "logo",
    "fieldtype": "Attach Image",
    "label": "Logo"
+  },
+  {
+   "fieldname": "column_break_is44n",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_list",
+   "fieldtype": "Link",
+   "label": "Price List",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "column_break_ymh1p",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-04-10 22:53:03.829830",
+ "modified": "2023-04-12 21:48:24.917581",
  "modified_by": "Administrator",
  "module": "QR Demo",
  "name": "QR Demo",

@@ -14,7 +14,24 @@ class QRDemo(Document):
 				return barcode.barcode
 		else:
 			return -1
+	
+
+	@frappe.whitelist()
+	def the_price(self, price_list, item_barcode = the_barcode()):
+		item_prices = frappe.db.sql("""
+        SELECT ip.name, ip.item_name, ip.price_list, ip.price_list_rate, ibp.barcode
+        FROM `tabItem Price` ip
+        LEFT JOIN `tabItem Barcode PL` ibp ON ibp.parent = ip.name
+        WHERE ip.price_list = %s AND ibp.barcode = %s
+    """, price_list, item_barcode, as_dict=True)
 		
+		item_prices = list(set(item_prices))
+		
+		the_price = [value for value, unit in item_prices if unit == 'قطعة'][0]
+
+		return the_price
+	
+
 	def validate(self):
 		...
 		# self.qr_code = get_barcode(self.title)
