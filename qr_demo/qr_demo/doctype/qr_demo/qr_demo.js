@@ -54,16 +54,10 @@ frappe.ui.form.on('QR Demo', {
 					args: {price_list: frm.doc.price_list, item_barcode: barcode, uom: frm.doc.uom},
 					method: "the_price",
 					callback: function (response) { 
-						if (response.message != -1) {
 							console.log(response.message)
 							frm.doc.item_price = response.message
 							frm.refresh_fields()
-						}
-						else {
-							frm.doc.price_list = ''
-							frappe.msgprint('لم يتم تعيين قائمة الأسعار هذه للصنف!')
-							frm.refresh_fields()
-						}
+						
 						
 					}
 				})

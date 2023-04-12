@@ -27,12 +27,9 @@ class QRDemo(Document):
 		
 		item_prices = list(set(item_prices))
 
-		if not item_prices:
-			return -1
-		else:
-			the_price = [value for value, unit in item_prices if unit == uom][0]
+		the_price = [value for value, unit in item_prices if unit == uom][0]
 
-			return the_price
+		return the_price
 	
 
 	def validate(self):
