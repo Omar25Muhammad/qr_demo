@@ -26,10 +26,13 @@ class QRDemo(Document):
     """, (price_list, item_barcode))
 		
 		item_prices = list(set(item_prices))
-		
-		the_price = [value for value, unit in item_prices if unit == uom][0]
 
-		return the_price
+		if not item_prices:
+			return -1
+		else:
+			the_price = [value for value, unit in item_prices if unit == uom][0]
+
+			return the_price
 	
 
 	def validate(self):
