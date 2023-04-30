@@ -5,8 +5,8 @@ from barcode.writer import ImageWriter
 import frappe
 
 @frappe.whitelist()
-def get_barcode(data: str) -> str:
-    barcode_bytes = get_barcode_bytes(data, format="PNG")
+def get_barcode(data: str, doctype='') -> str:
+    barcode_bytes = get_barcode_bytes(data, doctype, format="PNG")
     base_64_string = bytes_to_base64_string(barcode_bytes)
 
     return add_file_info(base_64_string, "image/png")
@@ -19,9 +19,12 @@ def add_file_info(data: str, mime_type: str) -> str:
     return f"data:{mime_type};base64, {data}"
 
 
-def get_barcode_bytes(data, format: str) -> bytes:
+def get_barcode_bytes(data, doctype, format: str) -> bytes:
     """Create a barcode and return the bytes."""
-    barcode_class = barcode.get_barcode_class('code128')
+    if doctype == 'Sales Invoice':
+        barcode_class = barcode.get_barcode_class('code128')
+    else:
+        barcode_class = barcode.get_barcode_class('ean8')
     barcode_instance = barcode_class(data, writer=ImageWriter())
     barcode_image = barcode_instance.render()
 

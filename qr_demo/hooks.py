@@ -2,9 +2,9 @@ from . import __version__ as app_version
 
 app_name = "qr_demo"
 app_title = "QR Demo"
-app_publisher = "ALYF GmbH"
-app_description = "Demo app for printing QR codes"
-app_email = "hallo@alyf.de"
+app_publisher = "ALYF GmbH With Eng. Omar Contribution"
+app_description = "Demo app for printing QR codes & Barcode"
+app_email = "hallo@alyf.de, o.shehada@ard.com"
 app_license = "MIT"
 
 # Includes in <head>
@@ -54,12 +54,11 @@ app_license = "MIT"
 # Jinja
 # ----------
 
-# add methods and filters to jinja environment
-jinja = {
+# add methods to jinja environment
+jenv = {
 	"methods": [
-		"qr_demo.qr_code.get_qr_code"
-	],
-	# "filters": "qr_demo.utils.jinja_filters"
+		"get_barcode:qr_demo.qr_code.get_barcode"
+	]
 }
 
 # Installation
