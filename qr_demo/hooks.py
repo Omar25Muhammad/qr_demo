@@ -57,7 +57,8 @@ app_license = "MIT"
 # add methods to jinja environment
 jenv = {
 	"methods": [
-		"get_barcode:qr_demo.qr_code.get_barcode"
+		"get_barcode:qr_demo.qr_code.get_barcode",
+        "get_qr_code:qr_demo.qr_code.get_qr_code"
 	]
 }
 
