@@ -24,11 +24,21 @@ frappe.ui.form.on('QR Demo', {
 					// frm.refresh_fields('item_barcode')
 					if (r.message != -1)
 						{
-						barcode = r.message
+						barcode = r.message.replace(r.message[0], '9')
+						frm.call({
+							method: 'qr_demo.qr_code.add_barcode',
+							args: { barcode: barcode, docname: frm.doc.item_code },
+							callback: function (f) {
+								console.log(f.message)
+							}
+						});
 						frm.call({
 							method: "qr_demo.qr_code.get_barcode",
-							args: { data: r.message },
+							args: { data: barcode },
 							callback: function (rt) {
+								r.message = r.message + '1' 
+								console.log(typeof(r.message))
+								console.log(r.message)
 								console.log(rt.message)
 								frm.doc.qr_code = rt.message;
 								frm.refresh_fields();

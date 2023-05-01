@@ -29,7 +29,7 @@ def add_file_info(data: str, mime_type: str) -> str:
 def get_barcode_bytes(data, doctype, format: str) -> bytes:
     """Create a barcode and return the bytes."""
     if doctype == 'Sales Invoice':
-        barcode_class = barcode.get_barcode_class('code128')
+        barcode_class = barcode.get_barcode_class('code39')
     else:
         barcode_class = barcode.get_barcode_class('ean8')
     barcode_instance = barcode_class(data, writer=ImageWriter())
@@ -52,3 +52,38 @@ def get_qr_code_bytes(data, format: str) -> bytes:
 def bytes_to_base64_string(data: bytes) -> str:
     """Convert bytes to a base64 encoded string."""
     return b64encode(data).decode("utf-8")
+
+
+@frappe.whitelist()
+def add_barcode(barcode, docname):
+    doc1 = frappe.get_doc('Item', docname)
+    docs2 = frappe.get_all('Item Price', filters={'item_code': docname}, pluck='name')
+    founds = [0, 0]
+
+    for i in doc1.barcodes:
+        if i.barcode == barcode:
+            founds[0] = 1
+            break
+
+    for doc2 in docs2:
+        doc2 = frappe.get_doc('Item Price', doc2)
+        for i in doc2.barcodes:
+            if i.barcode == barcode:
+                founds[1] = 1
+                break
+        
+    if all(founds):
+         return 'Found!'
+    
+    if not founds[0]:
+        doc1.append('barcodes', {'barcode': barcode})
+        doc1.save()
+    
+    if not founds[1]:
+        doc2.append('barcodes', {'barcode': barcode})
+        doc2.save()
+
+    frappe.db.commit()
+
+    return 'Done!'
+    
