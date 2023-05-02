@@ -24,7 +24,7 @@ frappe.ui.form.on('QR Demo', {
 					// frm.refresh_fields('item_barcode')
 					if (r.message != -1)
 						{
-						barcode = r.message.replace(r.message[0], '9')
+						// barcode = r.message.replace(r.message[0], '9')
 						
 						frm.call({
 							method: 'qr_demo.qr_code.scan_barcode',

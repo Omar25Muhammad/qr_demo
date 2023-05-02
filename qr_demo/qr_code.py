@@ -91,8 +91,6 @@ def add_barcode(barcode, docname):
     return 'Done!'
     
 
-
-
 @frappe.whitelist()
 def scan_barcode(doc):
 
