@@ -59,36 +59,39 @@ def bytes_to_base64_string(data: bytes) -> str:
 
 @frappe.whitelist()
 def add_barcode(barcode, docname):
-    doc1 = frappe.get_doc('Item', docname)
-    docs2 = frappe.get_all('Item Price', filters={'item_code': docname}, pluck='name')
-    founds = [0, 0]
+    try:
+        doc1 = frappe.get_doc('Item', docname)
+        docs2 = frappe.get_all('Item Price', filters={'item_code': docname}, pluck='name')
+        founds = [0, 0]
 
-    for i in doc1.barcodes:
-        if i.barcode == barcode:
-            founds[0] = 1
-            break
-
-    for doc2 in docs2:
-        doc2 = frappe.get_doc('Item Price', doc2)
-        for i in doc2.barcodes:
+        for i in doc1.barcodes:
             if i.barcode == barcode:
-                founds[1] = 1
+                founds[0] = 1
                 break
+
+        for doc2 in docs2:
+            doc2 = frappe.get_doc('Item Price', doc2)
+            for i in doc2.barcodes:
+                if i.barcode == barcode:
+                    founds[1] = 1
+                    break
+            
+        if all(founds):
+            return 'Found!'
         
-    if all(founds):
-         return 'Found!'
-    
-    if not founds[0]:
-        doc1.append('barcodes', {'barcode': barcode})
-        doc1.save()
-    
-    if not founds[1]:
-        doc2.append('barcodes', {'barcode': barcode})
-        doc2.save()
+        if not founds[0]:
+            doc1.append('barcodes', {'barcode': barcode})
+            doc1.save()
+        
+        if not founds[1]:
+            doc2.append('barcodes', {'barcode': barcode})
+            doc2.save()
 
-    frappe.db.commit()
+        frappe.db.commit()
 
-    return 'Done!'
+        return 'Done!'
+    except UnboundLocalError:
+        frappe.throw('تأكّد من توفّر سعر لهذا الصنف في النظام!')
     
 
 @frappe.whitelist()

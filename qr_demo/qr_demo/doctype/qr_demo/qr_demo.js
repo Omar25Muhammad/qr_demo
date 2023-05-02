@@ -85,7 +85,10 @@ frappe.ui.form.on('QR Demo', {
 								args: { barcode: ft.message, docname: frm.doc.item_code },
 								callback: function (f) {
 									console.log(f.message)
-								}
+								},
+								error: function (err) {
+									frm.dirty();
+								},
 							});
 
 								
