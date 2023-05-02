@@ -5,6 +5,8 @@ from frappe.model.document import Document
 from qr_demo.qr_code import get_barcode
 import frappe
 
+# from qr_demo.qr_code import (scan_barcode, add_barcode)
+
 class QRDemo(Document):
 
 	@frappe.whitelist()
@@ -35,3 +37,11 @@ class QRDemo(Document):
 	def validate(self):
 		...
 		# self.qr_code = get_barcode(self.title)
+
+	def after_insert(self):
+		...
+		# frappe.msgprint(f'{self.name}')
+		# new_barcode = scan_barcode(self.name)
+		# add_barcode(new_barcode, self.name)
+		
+

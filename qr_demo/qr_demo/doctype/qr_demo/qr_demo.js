@@ -19,7 +19,7 @@ frappe.ui.form.on('QR Demo', {
 				doc: frm.doc,
 				method: "the_barcode",
 				callback: function (r) {
-					console.log(r.message);
+					// console.log(r.message);
 					// frm.doc.item_barcode = r.message
 					// frm.refresh_fields('item_barcode')
 					if (r.message != -1)
@@ -32,9 +32,9 @@ frappe.ui.form.on('QR Demo', {
 							args: { data: barcode },
 							callback: function (rt) {
 								r.message = r.message + '1' 
-								console.log(typeof(r.message))
-								console.log(r.message)
-								console.log(rt.message)
+								// console.log(typeof(r.message))
+								// console.log(r.message)
+								// console.log(rt.message)
 								frm.doc.qr_code = rt.message;
 								frm.refresh_fields();
 							}
@@ -91,5 +91,8 @@ frappe.ui.form.on('QR Demo', {
 								
 							}
 						});
-	}
+	},
+	// after_save: function (frm) {
+	// 	frappe.msgprint(frm.doc.name)
+	// }
 });
